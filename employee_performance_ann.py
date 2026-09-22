@@ -36,21 +36,22 @@ if st.button("Predict Performance"):
         dtype=np.float32
     )
 
-    prediction = model.predict(input_data)
+    prediction = model.predict(input_data, verbose=0)
 
-    if prediction.shape[-1] == 1:
-        probability = float(prediction[0][0])
+    probability = float(prediction[0][0])
 
-        if probability >= 0.5:
-            st.success("✅ High Performance")
-        else:
-            st.warning("⚠️ Low Performance")
+    if probability >= 0.70:
+        st.success("✅ High Performance")
+        st.write(f"Performance Probability: {probability * 100:.2f}%")
 
+    elif probability >= 0.40:
+        st.warning("⚠️ Needs Improvement")
         st.write(f"Performance Probability: {probability * 100:.2f}%")
 
     else:
-        predicted_class = np.argmax(prediction[0])
-        probability = np.max(prediction[0]) * 100
+        st.error("❌ Low Performance")
+        st.write(f"Performance Probability: {probability * 100:.2f}%")
 
-        st.success(f"Predicted Performance Class: {predicted_class}")
-        st.write(f"Probability: {probability:.2f}%")
+    st.write("### Employee Details")
+    st.write(f"**Attendance:** {attendance:.0f}%")
+    st.write(f"**Training Hours:** {training_hours:.0f}")
