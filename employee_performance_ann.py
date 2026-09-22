@@ -15,7 +15,7 @@ st.write("Enter the employee details to predict performance.")
 
 attendance = st.number_input(
     "Attendance (%)",
-    min_value=0.0,
+    min_value=30.0,
     max_value=100.0,
     value=80.0,
     step=1.0
@@ -23,7 +23,7 @@ attendance = st.number_input(
 
 training_hours = st.number_input(
     "Training Hours",
-    min_value=0.0,
+    min_value=4.0,
     max_value=100.0,
     value=20.0,
     step=1.0
